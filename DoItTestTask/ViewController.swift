@@ -16,6 +16,7 @@ class ViewController: UIViewController {
         WorkWithAPI.fetchData(feed: "http://api.doitserver.in.ua", token: nil, parameters: nil, method: "POST", onCompletion: {(success, data) -> Void in
             if success {
             print("Bingo")
+                
             } })
     }
 
