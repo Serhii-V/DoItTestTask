@@ -39,7 +39,6 @@ class SignInVC: UIViewController {
             }
             
             request.httpBody = httpBody
-            
             let session = URLSession.shared
             print(request)
             session.dataTask(with: request) { (data, response, error) in
@@ -65,13 +64,13 @@ class SignInVC: UIViewController {
         
     }
     
-    func dataIsOk() -> Bool  {
+    func dataIsOk() -> Bool  {    // Check for empty fields. I
         if emailTextField.text == "" || passwordTextField.text == "" {
             return false
         } else {
             return true
         }
-        
+                        // add more check like ( "@" and "." )
     }
     /*
     // MARK: - Navigation
