@@ -24,23 +24,7 @@ class WorkWithAPI: NSObject {
                     let authValue = "Token \(tk)"
                     request.setValue(authValue, forHTTPHeaderField: "Authorization")
                 }
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                if let parm = parameters{
+          if let parm = parameters{
 //                    if let data = NSJSONSerialization.dataWithJSONObject(parm, options:NSJSONWritingOptions(0), error:nil) as NSData? {
 //                        
 //                        //println(NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(0), error: nil))
