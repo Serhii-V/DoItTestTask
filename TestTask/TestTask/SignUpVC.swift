@@ -37,11 +37,11 @@ class SignUpVC: UIViewController, UINavigationControllerDelegate, UIImagePickerC
     
     @IBAction func changeAvatar(_ sender: UIButton) {
         
-        let controller = UIImagePickerController()
-        controller.delegate = self
-        controller.sourceType = .photoLibrary
-        
-        present(controller, animated: true, completion: nil)
+//        let controller = UIImagePickerController()
+//        controller.delegate = self
+//        controller.sourceType = .photoLibrary
+//        
+//        present(controller, animated: true, completion: nil)
     }
 
 }
