@@ -24,13 +24,19 @@ class ViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.performSegue(withIdentifier: "signinView", sender: self)
-        
-//        if /* userDidLogin... REPLACE WITH YOUR CODE*/ {
-//            performSegue(withIdentifier: "ShowLogin", sender: nil)
-//        }
+        if !(UserDefaults.standard.bool(forKey: "isUserLoggedIn")) {
+          self.performSegue(withIdentifier: "signinView", sender: self)
+        }
+
     
     }
+    
+    @IBAction func logOutButton(_ sender: UIButton) {
+        UserDefaults.standard.set(false, forKey: "isUserLoggedIn")
+        self.performSegue(withIdentifier: "signinView", sender: self)
+    }
+    
+    
 }
 
  

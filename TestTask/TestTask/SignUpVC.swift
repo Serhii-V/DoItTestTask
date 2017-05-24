@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import Alamofire
 
 class SignUpVC: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-
+    
     
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
@@ -21,10 +22,10 @@ class SignUpVC: UIViewController, UINavigationControllerDelegate, UIImagePickerC
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
-
+    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
@@ -43,14 +44,19 @@ class SignUpVC: UIViewController, UINavigationControllerDelegate, UIImagePickerC
         controller.sourceType = .photoLibrary
         
         present(controller, animated: true, completion: nil)
+        
     }
     
-    @IBAction func singInButton(_ sender: UIButton) {
+    
+    
+    @IBAction func signUpButton(_ sender: UIButton) {
         let username = usernameTextField.text
         let email = emailTextField.text
         let password = passwordTextField.text
         let confirm = confirmPasswordTextField.text
-        let image = UIImageJPEGRepresentation(avatarView.image!, 1)
+        let image = avatarView.image!
+        
+        
         if (username == ""  || email == "" || password == "" || confirm == "" ) {
             errorLabel.text = "check data"
             errorLabel.textColor = UIColor.red
@@ -59,40 +65,35 @@ class SignUpVC: UIViewController, UINavigationControllerDelegate, UIImagePickerC
             errorLabel.text = "wrong confirmation "
             errorLabel.textColor = UIColor.red
             errorLabel.isHidden = false
-
+            
         } else {
-            let parameters = ["username":"\(username)","email":"\(email)", "password":"\(password)"] as [String : Any]
+
+            let parameters = ["username":"\(username!)","email":"\(email!)", "password":"\(password!)"]
             
-            guard let url = URL(string:"http://api.doitserver.in.ua/create") else {return}
-            
-            var request = URLRequest(url: url)
-            request.httpMethod = "POST"
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else {
-                return
-            }
-            
-            request.httpBody = httpBody
-            let session = URLSession.shared
-            print(request)
-            session.dataTask(with: request) { (data, response, error) in
-                if let response = response {
-                    print(response)
+            Alamofire.upload(multipartFormData: { multipartFormData in
+                if let imageData = UIImageJPEGRepresentation(image, 1) {
+                    multipartFormData.append(imageData, withName: "avatar", fileName: "file.png", mimeType: "image/png")
                 }
-                if let data = data {
-                    do {
-                        let json = try JSONSerialization.jsonObject(with: data, options: [])
-                        print(json)
-                    } catch {
-                        print(error)
-                    }
-                }
-                }.resume()
-        }
-        
-        
+                
+                for (key, value) in parameters {
+                    multipartFormData.append((value.data(using: .utf8))!, withName: key)
+                }}, to: "http://api.doitserver.in.ua/create", method: .post,
+                    encodingCompletion: { encodingResult in
+                        switch encodingResult {
+                        case .success(let upload, _, _):
+                            upload.response { [weak self] response in
+                                guard self != nil else {
+                                    return
+                                }
+                                if response.response?.statusCode == 201 {
+                                    self?.dismiss(animated: true, completion: nil)
+                                }
+                                
+                            }
+                        case .failure(let encodingError):
+                            print("error:\(encodingError)")
+                        }
+            })
+        } 
     }
-    
-
-
 }

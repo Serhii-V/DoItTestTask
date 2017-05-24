@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class SignInVC: UIViewController {
 
@@ -26,38 +27,63 @@ class SignInVC: UIViewController {
     
 
     @IBAction func signInButton(_ sender: UIButton) {
+        
         if dataIsOk() {
             let parameters = ["email":"\(emailTextField.text!)", "password":"\(passwordTextField.text!)"]
-            
             guard let url = URL(string:"http://api.doitserver.in.ua/login") else {return}
-            
-            var request = URLRequest(url: url)
-            request.httpMethod = "POST"
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else {
-                return
-            }
-            
-            request.httpBody = httpBody
-            let session = URLSession.shared
-            print(request)
-            session.dataTask(with: request) { (data, response, error) in
-                if let response = response {
-                    print(response)
-                }
-                if let data = data {
-                    do {
-                        let json = try JSONSerialization.jsonObject(with: data, options: [])
-                        print(json)
-                    } catch {
-                        print(error)
+            Alamofire.request(url, method: .post , parameters: parameters).responseJSON { response in
+                if let code = response.response?.statusCode {
+                    if code == 200 {
+                        UserDefaults.standard.set(true, forKey: "isUserLoggedIn") // save our state
+                        UserDefaults.standard.synchronize()
+                        self.dismiss(animated: true, completion: nil)
+                    } else {
+                        self.errorLabel.isHidden = false
                     }
                 }
-                }.resume()
+            }
+            
+            
+            
+//            let parameters = ["email":"\(emailTextField.text!)", "password":"\(passwordTextField.text!)"]
+//            
+//            guard let url = URL(string:"http://api.doitserver.in.ua/login") else {return}
+//            
+//            var request = URLRequest(url: url)
+//            request.httpMethod = "POST"
+//            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//            guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else {
+//                return
+//            }
+//            
+//            request.httpBody = httpBody
+//            let session = URLSession.shared
+//            print(request)
+//            session.dataTask(with: request) { (data, response, error) in
+//                if let response = response {
+//                    print("resp = \(response) ========")
+//                    print(response)
+//                }
+//                if let data = data {
+//                    do {
+//                        let json = try JSONSerialization.jsonObject(with: data, options: [])
+//                        print(json)
+//                        // add check for response 200
+//                        UserDefaults.standard.set(true, forKey: "isUserLoggedIn")
+//                        UserDefaults.standard.synchronize()
+//                        self.dismiss(animated: true, completion: nil)
+//                        
+//                    } catch {
+//                        print(error)
+//                    }
+//                }
+//                }.resume()
         } else
         {
-            errorLabel.isHidden = false
+            errorLabel.isHidden = false // if empty field, show the message
         }
+        
+        
        
         
         
