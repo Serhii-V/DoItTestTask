@@ -88,7 +88,6 @@ class SignUpVC: UIViewController, UINavigationControllerDelegate, UIImagePickerC
                                 if response.response?.statusCode == 201 {
                                     self?.dismiss(animated: true, completion: nil)
                                 }
-                                
                             }
                         case .failure(let encodingError):
                             print("error:\(encodingError)")

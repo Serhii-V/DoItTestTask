@@ -15,10 +15,14 @@ class SignInVC: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
+
+    
     @IBOutlet weak var errorLabel: UILabel!
+    
+   
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -34,9 +38,19 @@ class SignInVC: UIViewController {
             Alamofire.request(url, method: .post , parameters: parameters).responseJSON { response in
                 if let code = response.response?.statusCode {
                     if code == 200 {
+                       var token = String()
+                        let array = response.description.components(separatedBy: ";")
+                        for i in array {
+                            if i.contains("token") {
+                                let temp = i.components(separatedBy: " ")
+                                token = temp[temp.count - 1]
+                                print(token)
+                            }
+                        }
+                        UserDefaults.standard.set(token, forKey: "token")
                         UserDefaults.standard.set(true, forKey: "isUserLoggedIn") // save our state
                         UserDefaults.standard.synchronize()
-                        self.dismiss(animated: true, completion: nil)
+                        self.navigationController?.popViewController(animated: true)
                     } else {
                         self.errorLabel.isHidden = false
                     }
@@ -90,6 +104,7 @@ class SignInVC: UIViewController {
         
     }
     
+    
     func dataIsOk() -> Bool  {    // Check for empty fields. I
         if emailTextField.text == "" || passwordTextField.text == "" {
             return false
@@ -98,14 +113,4 @@ class SignInVC: UIViewController {
         }
                         // add more check like ( "@" and "." )
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

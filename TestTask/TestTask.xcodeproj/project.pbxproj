@@ -16,6 +16,8 @@
 		C58F0E341EC3CB4600269CA5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C58F0E321EC3CB4600269CA5 /* LaunchScreen.storyboard */; };
 		C58F0E3E1EC51E2700269CA5 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58F0E3D1EC51E2700269CA5 /* SignUpVC.swift */; };
 		C58F0E401EC51E4300269CA5 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58F0E3F1EC51E4300269CA5 /* SignInVC.swift */; };
+		C5A758FA1ED5C26F00674196 /* imagesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A758F91ED5C26F00674196 /* imagesVC.swift */; };
+		C5A758FC1ED5CA7D00674196 /* addImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A758FB1ED5CA7D00674196 /* addImageVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		C58F0E351EC3CB4600269CA5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C58F0E3D1EC51E2700269CA5 /* SignUpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		C58F0E3F1EC51E4300269CA5 /* SignInVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
+		C5A758F91ED5C26F00674196 /* imagesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = imagesVC.swift; sourceTree = "<group>"; };
+		C5A758FB1ED5CA7D00674196 /* addImageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = addImageVC.swift; path = ../addImageVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,13 +90,15 @@
 			isa = PBXGroup;
 			children = (
 				C58F0E2D1EC3CB4600269CA5 /* Main.storyboard */,
-				C58F0E3D1EC51E2700269CA5 /* SignUpVC.swift */,
-				C58F0E3F1EC51E4300269CA5 /* SignInVC.swift */,
 				C58F0E2B1EC3CB4600269CA5 /* ViewController.swift */,
-				C58F0E291EC3CB4600269CA5 /* AppDelegate.swift */,
+				C5A758FB1ED5CA7D00674196 /* addImageVC.swift */,
+				C5A758F91ED5C26F00674196 /* imagesVC.swift */,
+				C58F0E3F1EC51E4300269CA5 /* SignInVC.swift */,
+				C58F0E3D1EC51E2700269CA5 /* SignUpVC.swift */,
 				C58F0E301EC3CB4600269CA5 /* Assets.xcassets */,
 				C58F0E321EC3CB4600269CA5 /* LaunchScreen.storyboard */,
 				C58F0E351EC3CB4600269CA5 /* Info.plist */,
+				C58F0E291EC3CB4600269CA5 /* AppDelegate.swift */,
 			);
 			path = TestTask;
 			sourceTree = "<group>";
@@ -222,10 +228,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5A758FC1ED5CA7D00674196 /* addImageVC.swift in Sources */,
 				C58F0E3E1EC51E2700269CA5 /* SignUpVC.swift in Sources */,
 				C58F0E2C1EC3CB4600269CA5 /* ViewController.swift in Sources */,
 				C58F0E2A1EC3CB4600269CA5 /* AppDelegate.swift in Sources */,
 				C58F0E401EC51E4300269CA5 /* SignInVC.swift in Sources */,
+				C5A758FA1ED5C26F00674196 /* imagesVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
