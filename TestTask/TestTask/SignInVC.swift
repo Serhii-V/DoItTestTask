@@ -31,7 +31,6 @@ class SignInVC: UIViewController {
     
     
     @IBAction func signInButton(_ sender: UIButton) {
-        
         if dataIsOk() {
             let parameters = ["email":"\(emailTextField.text!)", "password":"\(passwordTextField.text!)"]
             guard let url = URL(string:"http://api.doitserver.in.ua/login") else {return}
@@ -61,7 +60,6 @@ class SignInVC: UIViewController {
             errorLabel.isHidden = false // if empty field, show the message
         }
     }
-    
     
     func dataIsOk() -> Bool  {    // Check for empty fields. I
         if emailTextField.text == "" || passwordTextField.text == "" {

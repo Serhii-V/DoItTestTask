@@ -71,7 +71,7 @@ class SignUpVC: UIViewController, UINavigationControllerDelegate, UIImagePickerC
             let parameters = ["username":"\(username!)","email":"\(email!)", "password":"\(password!)"]
             
             Alamofire.upload(multipartFormData: { multipartFormData in
-                if let imageData = UIImageJPEGRepresentation(image, 1) {
+                if let imageData = UIImageJPEGRepresentation(image, 0.2) {
                     multipartFormData.append(imageData, withName: "avatar", fileName: "file.png", mimeType: "image/png")
                 }
                 
@@ -86,8 +86,9 @@ class SignUpVC: UIViewController, UINavigationControllerDelegate, UIImagePickerC
                                     return
                                 }
                                 if response.response?.statusCode == 201 {
-                                    self?.dismiss(animated: true, completion: nil)
+                                self?.navigationController?.popViewController(animated: true)
                                 }
+                                print(response.response)
                             }
                         case .failure(let encodingError):
                             print("error:\(encodingError)")

@@ -17,7 +17,7 @@ class addImageVC: UIViewController, UINavigationControllerDelegate, UIImagePicke
     @IBOutlet weak var longitudeTF: UITextField!
     @IBOutlet weak var imagePreview: UIImageView!
     @IBOutlet weak var errorLabel: UILabel!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -101,7 +101,10 @@ class addImageVC: UIViewController, UINavigationControllerDelegate, UIImagePicke
                                 switch encodingResult {
                                 case .success(let upload, _, _):
                                     upload.responseJSON { response in
-                                        debugPrint(response)
+                                        if (response.response?.statusCode) == 201 {
+                                          self.navigationController?.popViewController(animated: true)
+                                        }
+                                        debugPrint(response.response?.statusCode)
                                     }
                                 case .failure(let encodingError):
                                     print(encodingError)
