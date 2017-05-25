@@ -17,19 +17,13 @@ class addImageVC: UIViewController, UINavigationControllerDelegate, UIImagePicke
     @IBOutlet weak var longitudeTF: UITextField!
     @IBOutlet weak var imagePreview: UIImageView!
     @IBOutlet weak var errorLabel: UILabel!
-    
-    
-    
-    
-    
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -83,42 +77,36 @@ class addImageVC: UIViewController, UINavigationControllerDelegate, UIImagePicke
         let latitude = latitudeTF.text
         let longitude = longitudeTF.text
         let image = imagePreview.image!
-        let token = UserDefaults.standard.value(forKey: "token")
+        let token = UserDefaults.standard.value(forKey: "token")!
         
         if (description == ""  || hashtag == "" || latitude == "" || longitude == "" ) {
             errorLabel.isHidden = false
         } else {
             
-            let parameters = ["description":"\(description!)","hashtag":"\(hashtag!)", "latitude":"\(latitude!)", "longitude" : "\(longitude!)", "token": "\(token!)" ]
+            let parameters = ["description":"\(description!)","hashtag":"\(hashtag!)", "latitude":"\(latitude!)", "longitude" : "\(longitude!)"]
             
-            Alamofire.upload(multipartFormData: { multipartFormData in
-                if let imageData = UIImageJPEGRepresentation(image, 1) {
-                    multipartFormData.append(imageData, withName: "image", fileName: "file.png", mimeType: "image/png")
-                }
-                
+        
+            Alamofire.upload(multipartFormData:{ multipartFormData in
+                let imageData = UIImageJPEGRepresentation(image, 0.2)
+                multipartFormData.append(imageData!, withName: "image", fileName: "file.png", mimeType: "image/png")
                 for (key, value) in parameters {
                     multipartFormData.append((value.data(using: .utf8))!, withName: key)
-                }}, to: "http://api.doitserver.in.ua/image", method: .post,
-                    encodingCompletion: { encodingResult in
-                        switch encodingResult {
-                        case .success(let upload, _, _):
-                            upload.response { [weak self] response in
-                                guard self != nil else {
-                                    return
+                }
+            },
+                             
+                             to:"http://api.doitserver.in.ua/image",
+                             method:.post,
+                             headers:["token": "\(token)"],
+                             encodingCompletion: { encodingResult in
+                                switch encodingResult {
+                                case .success(let upload, _, _):
+                                    upload.responseJSON { response in
+                                        debugPrint(response)
+                                    }
+                                case .failure(let encodingError):
+                                    print(encodingError)
                                 }
-                                if response.response?.statusCode == 201 {
-                                    print("++++++++++++++++++++++++++++++++")
-                                    self?.dismiss(animated: true, completion: nil)
-                                    
-                                }
-                            }
-                        case .failure(let encodingError):
-                            print("error:\(encodingError)")
-                        }
             })
-        } 
-
+        }
     }
-    
-
 }

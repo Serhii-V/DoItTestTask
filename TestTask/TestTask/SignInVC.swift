@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 
 class SignInVC: UIViewController {
-
+    
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     override func viewDidLoad() {
@@ -18,18 +18,18 @@ class SignInVC: UIViewController {
         
         // Do any additional setup after loading the view.
     }
-
+    
     
     @IBOutlet weak var errorLabel: UILabel!
     
-   
-
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     @IBAction func signInButton(_ sender: UIButton) {
         
         if dataIsOk() {
@@ -38,7 +38,7 @@ class SignInVC: UIViewController {
             Alamofire.request(url, method: .post , parameters: parameters).responseJSON { response in
                 if let code = response.response?.statusCode {
                     if code == 200 {
-                       var token = String()
+                        var token = String()
                         let array = response.description.components(separatedBy: ";")
                         for i in array {
                             if i.contains("token") {
@@ -56,52 +56,10 @@ class SignInVC: UIViewController {
                     }
                 }
             }
-            
-            
-            
-//            let parameters = ["email":"\(emailTextField.text!)", "password":"\(passwordTextField.text!)"]
-//            
-//            guard let url = URL(string:"http://api.doitserver.in.ua/login") else {return}
-//            
-//            var request = URLRequest(url: url)
-//            request.httpMethod = "POST"
-//            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-//            guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else {
-//                return
-//            }
-//            
-//            request.httpBody = httpBody
-//            let session = URLSession.shared
-//            print(request)
-//            session.dataTask(with: request) { (data, response, error) in
-//                if let response = response {
-//                    print("resp = \(response) ========")
-//                    print(response)
-//                }
-//                if let data = data {
-//                    do {
-//                        let json = try JSONSerialization.jsonObject(with: data, options: [])
-//                        print(json)
-//                        // add check for response 200
-//                        UserDefaults.standard.set(true, forKey: "isUserLoggedIn")
-//                        UserDefaults.standard.synchronize()
-//                        self.dismiss(animated: true, completion: nil)
-//                        
-//                    } catch {
-//                        print(error)
-//                    }
-//                }
-//                }.resume()
         } else
         {
             errorLabel.isHidden = false // if empty field, show the message
         }
-        
-        
-       
-        
-        
-        
     }
     
     
@@ -111,6 +69,6 @@ class SignInVC: UIViewController {
         } else {
             return true
         }
-                        // add more check like ( "@" and "." )
+        // add more check like ( "@" and "." )
     }
 }
