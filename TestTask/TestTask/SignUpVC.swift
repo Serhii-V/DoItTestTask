@@ -71,7 +71,7 @@ class SignUpVC: UIViewController, UINavigationControllerDelegate, UIImagePickerC
             let parameters = ["username":"\(username!)","email":"\(email!)", "password":"\(password!)"]
             
             Alamofire.upload(multipartFormData: { multipartFormData in
-                if let imageData = UIImageJPEGRepresentation(image, 0.2) {
+                if let imageData = UIImageJPEGRepresentation(image, 0.5) {
                     multipartFormData.append(imageData, withName: "avatar", fileName: "file.png", mimeType: "image/png")
                 }
                 

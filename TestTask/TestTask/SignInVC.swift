@@ -15,8 +15,14 @@ class SignInVC: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
+        if (UserDefaults.standard.bool(forKey: "isUserLoggedIn")) {
+            self.performSegue(withIdentifier: "picturesVC", sender: self)
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        errorLabel.isHidden = true
     }
     
     
@@ -36,6 +42,7 @@ class SignInVC: UIViewController {
             guard let url = URL(string:"http://api.doitserver.in.ua/login") else {return}
             Alamofire.request(url, method: .post , parameters: parameters).responseJSON { response in
                 if let code = response.response?.statusCode {
+                    print(code)
                     if code == 200 {
                         var token = String()
                         let array = response.description.components(separatedBy: ";")
@@ -49,7 +56,7 @@ class SignInVC: UIViewController {
                         UserDefaults.standard.set(token, forKey: "token")
                         UserDefaults.standard.set(true, forKey: "isUserLoggedIn") // save our state
                         UserDefaults.standard.synchronize()
-                        self.navigationController?.popViewController(animated: true)
+                        self.performSegue(withIdentifier: "picturesVC", sender: self)
                     } else {
                         self.errorLabel.isHidden = false
                     }

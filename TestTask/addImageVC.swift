@@ -20,36 +20,33 @@ class addImageVC: UIViewController, UINavigationControllerDelegate, UIImagePicke
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
-    var activeTextField:UITextField?;
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        ScrollViewContainer.setContentOffset(CGPoint.init(x: 0, y: 250), animated: true)
-        activeTextField = textField;
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        ScrollViewContainer.setContentOffset(CGPoint.init(x: 0, y: 0), animated: true)
-        activeTextField = nil;
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
-        if textField.tag == 0 {
-            descriptionTF.becomeFirstResponder()
-        } else {
-            descriptionTF.resignFirstResponder()
-        }
-        return true
-    }
+//    var activeTextField:UITextField?;
+//    
+//    func textFieldDidBeginEditing(_ textField: UITextField) {
+//        ScrollViewContainer.setContentOffset(CGPoint.init(x: 0, y: 250), animated: true)
+//        activeTextField = textField;
+//    }
+//    
+//    func textFieldDidEndEditing(_ textField: UITextField) {
+//        ScrollViewContainer.setContentOffset(CGPoint.init(x: 0, y: 0), animated: true)
+//        activeTextField = nil;
+//    }
+//    
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        
+//        if textField.tag == 0 {
+//            descriptionTF.becomeFirstResponder()
+//        } else {
+//            descriptionTF.resignFirstResponder()
+//        }
+//        return true
+//    }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
@@ -72,22 +69,22 @@ class addImageVC: UIViewController, UINavigationControllerDelegate, UIImagePicke
     }
     
     @IBAction func uploadButton(_ sender: UIButton) {
-        let description = descriptionTF.text
+        let descriptionn = descriptionTF.text
         let hashtag = hashtagTF.text
         let latitude = latitudeTF.text
         let longitude = longitudeTF.text
         let image = imagePreview.image!
         let token = UserDefaults.standard.value(forKey: "token")!
         
-        if (description == ""  || hashtag == "" || latitude == "" || longitude == "" ) {
+        if (descriptionn == ""  || hashtag == "" || latitude == "" || longitude == "" ) {
             errorLabel.isHidden = false
         } else {
             
-            let parameters = ["description":"\(description!)","hashtag":"\(hashtag!)", "latitude":"\(latitude!)", "longitude" : "\(longitude!)"]
+            let parameters = ["description":"\(descriptionn!)","hashtag":"\(hashtag!)", "latitude":"\(latitude!)", "longitude" : "\(longitude!)"]
             
         
             Alamofire.upload(multipartFormData:{ multipartFormData in
-                let imageData = UIImageJPEGRepresentation(image, 0.2)
+                let imageData = UIImageJPEGRepresentation(image, 0.5)
                 multipartFormData.append(imageData!, withName: "image", fileName: "file.png", mimeType: "image/png")
                 for (key, value) in parameters {
                     multipartFormData.append((value.data(using: .utf8))!, withName: key)
@@ -102,7 +99,8 @@ class addImageVC: UIViewController, UINavigationControllerDelegate, UIImagePicke
                                 case .success(let upload, _, _):
                                     upload.responseJSON { response in
                                         if (response.response?.statusCode) == 201 {
-                                          self.navigationController?.popViewController(animated: true)
+                                        //self.performSegue(withIdentifier: "picturesVC", sender: self)
+                                            self.navigationController?.popViewController(animated: true)
                                         }
                                         debugPrint(response.response?.statusCode)
                                     }

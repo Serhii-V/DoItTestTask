@@ -8,8 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		BD33EAFFD24E25C97D10401A /* Pods_TestTask.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 650173B18B17DED473F93994 /* Pods_TestTask.framework */; };
-		C54765151ED6D720002F4373 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54765141ED6D720002F4373 /* ImageCell.swift */; };
 		C54765171ED6D749002F4373 /* ImageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54765161ED6D749002F4373 /* ImageData.swift */; };
+		C547651F1ED787B9002F4373 /* PicturesCVCCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C547651E1ED787B9002F4373 /* PicturesCVCCell.swift */; };
+		C54765211ED812AF002F4373 /* PicturesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54765201ED812AF002F4373 /* PicturesVC.swift */; };
+		C54765271ED83B26002F4373 /* BigImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54765261ED83B26002F4373 /* BigImageVC.swift */; };
 		C55F5F9C1ED55950001CF2DC /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = C55F5F9B1ED55950001CF2DC /* Podfile */; };
 		C58F0E2A1EC3CB4600269CA5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58F0E291EC3CB4600269CA5 /* AppDelegate.swift */; };
 		C58F0E2F1EC3CB4600269CA5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C58F0E2D1EC3CB4600269CA5 /* Main.storyboard */; };
@@ -17,7 +19,6 @@
 		C58F0E341EC3CB4600269CA5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C58F0E321EC3CB4600269CA5 /* LaunchScreen.storyboard */; };
 		C58F0E3E1EC51E2700269CA5 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58F0E3D1EC51E2700269CA5 /* SignUpVC.swift */; };
 		C58F0E401EC51E4300269CA5 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58F0E3F1EC51E4300269CA5 /* SignInVC.swift */; };
-		C5A758FA1ED5C26F00674196 /* imagesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A758F91ED5C26F00674196 /* imagesVC.swift */; };
 		C5A758FC1ED5CA7D00674196 /* addImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A758FB1ED5CA7D00674196 /* addImageVC.swift */; };
 /* End PBXBuildFile section */
 
@@ -25,8 +26,10 @@
 		4D7F1D883904EAA16EAE7BC6 /* Pods-TestTask.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestTask.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TestTask/Pods-TestTask.debug.xcconfig"; sourceTree = "<group>"; };
 		5253942F26F6D2C1081BBF04 /* Pods-TestTask.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestTask.release.xcconfig"; path = "Pods/Target Support Files/Pods-TestTask/Pods-TestTask.release.xcconfig"; sourceTree = "<group>"; };
 		650173B18B17DED473F93994 /* Pods_TestTask.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestTask.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C54765141ED6D720002F4373 /* ImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		C54765161ED6D749002F4373 /* ImageData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageData.swift; sourceTree = "<group>"; };
+		C547651E1ED787B9002F4373 /* PicturesCVCCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PicturesCVCCell.swift; sourceTree = "<group>"; };
+		C54765201ED812AF002F4373 /* PicturesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PicturesVC.swift; sourceTree = "<group>"; };
+		C54765261ED83B26002F4373 /* BigImageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BigImageVC.swift; sourceTree = "<group>"; };
 		C55F5F9B1ED55950001CF2DC /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
 		C58F0E261EC3CB4600269CA5 /* TestTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C58F0E291EC3CB4600269CA5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -36,7 +39,6 @@
 		C58F0E351EC3CB4600269CA5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C58F0E3D1EC51E2700269CA5 /* SignUpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		C58F0E3F1EC51E4300269CA5 /* SignInVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
-		C5A758F91ED5C26F00674196 /* imagesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = imagesVC.swift; sourceTree = "<group>"; };
 		C5A758FB1ED5CA7D00674196 /* addImageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = addImageVC.swift; path = ../addImageVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -92,15 +94,16 @@
 			isa = PBXGroup;
 			children = (
 				C58F0E2D1EC3CB4600269CA5 /* Main.storyboard */,
-				C54765141ED6D720002F4373 /* ImageCell.swift */,
+				C54765201ED812AF002F4373 /* PicturesVC.swift */,
+				C54765261ED83B26002F4373 /* BigImageVC.swift */,
+				C547651E1ED787B9002F4373 /* PicturesCVCCell.swift */,
 				C5A758FB1ED5CA7D00674196 /* addImageVC.swift */,
-				C5A758F91ED5C26F00674196 /* imagesVC.swift */,
 				C58F0E3F1EC51E4300269CA5 /* SignInVC.swift */,
 				C58F0E3D1EC51E2700269CA5 /* SignUpVC.swift */,
+				C54765161ED6D749002F4373 /* ImageData.swift */,
 				C58F0E301EC3CB4600269CA5 /* Assets.xcassets */,
 				C58F0E321EC3CB4600269CA5 /* LaunchScreen.storyboard */,
 				C58F0E351EC3CB4600269CA5 /* Info.plist */,
-				C54765161ED6D749002F4373 /* ImageData.swift */,
 				C58F0E291EC3CB4600269CA5 /* AppDelegate.swift */,
 			);
 			path = TestTask;
@@ -232,12 +235,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				C5A758FC1ED5CA7D00674196 /* addImageVC.swift in Sources */,
+				C54765211ED812AF002F4373 /* PicturesVC.swift in Sources */,
 				C58F0E3E1EC51E2700269CA5 /* SignUpVC.swift in Sources */,
 				C58F0E2A1EC3CB4600269CA5 /* AppDelegate.swift in Sources */,
 				C54765171ED6D749002F4373 /* ImageData.swift in Sources */,
-				C54765151ED6D720002F4373 /* ImageCell.swift in Sources */,
+				C547651F1ED787B9002F4373 /* PicturesCVCCell.swift in Sources */,
 				C58F0E401EC51E4300269CA5 /* SignInVC.swift in Sources */,
-				C5A758FA1ED5C26F00674196 /* imagesVC.swift in Sources */,
+				C54765271ED83B26002F4373 /* BigImageVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
