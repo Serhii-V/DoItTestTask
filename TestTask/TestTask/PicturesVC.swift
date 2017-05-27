@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import Foundation
+import SwiftGifOrigin
 
 class PicturesVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
@@ -188,6 +189,8 @@ class PicturesVC: UIViewController, UICollectionViewDataSource, UICollectionView
     @IBAction func showGif(_ sender: UIBarButtonItem) {
         let imageView = UIImageView()
 
+        
+
             if let token = UserDefaults.standard.value(forKey: "token") {
                 let urlString = "http://api.doitserver.in.ua/gif"
                 let header: HTTPHeaders = [
@@ -199,16 +202,32 @@ class PicturesVC: UIViewController, UICollectionViewDataSource, UICollectionView
                             let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
                             let json = try JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers) as! [String:String]
                                 DispatchQueue.main.async {
-                                    imageView.dowloadImage(url: json["gif"]!)
-                                    imageView.frame = CGRect(x: 0, y: 0, width: 100, height: 200)
-                                    self.view.addSubview(imageView)
-                                //self.picturesCollectionView.reloadData()
+                                    let gifStr = json["gif"]!
+                                    let imageV = UIImageView()
+                                    
+                                    
+                                    let urlRequest = URLRequest(url: URL(string: gifStr)!)
+                                    let task = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+                                        if error != nil {
+                                            print(error)
+                                        }
+                                        DispatchQueue.main.async {
+                                            imageV.image = UIImage.gif(data: data!)
+                                            imageV.frame = CGRect(x: 50, y: 100, width: 250, height: 250)
+                                            self.view.addSubview(imageV)
+                                        }
+                                    }
+                                    task.resume()
                             }
                         } catch let error {
                             print(error)
                         }
                     }
                 }
+                
+                
+                
+                
             }
         
         
@@ -218,6 +237,9 @@ class PicturesVC: UIViewController, UICollectionViewDataSource, UICollectionView
     
     
 }
+
+
+
 
 extension UIImageView {
     func dowloadImage(url: String){
