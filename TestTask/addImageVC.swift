@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 
-class addImageVC: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate  {
+class addImageVC: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate  {
     @IBOutlet weak var ScrollViewContainer: UIScrollView!
     @IBOutlet weak var descriptionTF: UITextField!
     @IBOutlet weak var hashtagTF: UITextField!
@@ -26,27 +26,28 @@ class addImageVC: UIViewController, UINavigationControllerDelegate, UIImagePicke
         super.didReceiveMemoryWarning()
     }
     
-//    var activeTextField:UITextField?;
-//    
-//    func textFieldDidBeginEditing(_ textField: UITextField) {
-//        ScrollViewContainer.setContentOffset(CGPoint.init(x: 0, y: 250), animated: true)
-//        activeTextField = textField;
-//    }
-//    
-//    func textFieldDidEndEditing(_ textField: UITextField) {
-//        ScrollViewContainer.setContentOffset(CGPoint.init(x: 0, y: 0), animated: true)
-//        activeTextField = nil;
-//    }
-//    
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        
-//        if textField.tag == 0 {
-//            descriptionTF.becomeFirstResponder()
-//        } else {
-//            descriptionTF.resignFirstResponder()
-//        }
-//        return true
-//    }
+    var activeTextField:UITextField?;
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        ScrollViewContainer.setContentOffset(CGPoint.init(x: 0, y: 50), animated: true)
+        activeTextField = textField;
+    }
+    
+        
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        ScrollViewContainer.setContentOffset(CGPoint.init(x: 0, y: 0), animated: true)
+        activeTextField = nil;
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        if textField.tag == 0 {
+            descriptionTF.becomeFirstResponder()
+        } else {
+            descriptionTF.resignFirstResponder()
+        }
+        return true
+    }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
@@ -90,7 +91,6 @@ class addImageVC: UIViewController, UINavigationControllerDelegate, UIImagePicke
                     multipartFormData.append((value.data(using: .utf8))!, withName: key)
                 }
             },
-                             
                              to:"http://api.doitserver.in.ua/image",
                              method:.post,
                              headers:["token": "\(token)"],

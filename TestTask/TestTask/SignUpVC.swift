@@ -9,9 +9,10 @@
 import UIKit
 import Alamofire
 
-class SignUpVC: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class SignUpVC: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate {
     
     
+    @IBOutlet weak var addImageScrollV: UIScrollView!
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -25,6 +26,30 @@ class SignUpVC: UIViewController, UINavigationControllerDelegate, UIImagePickerC
         
         // Do any additional setup after loading the view.
     }
+    
+    var activeTextField:UITextField?;
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        addImageScrollV.setContentOffset(CGPoint.init(x: 0, y: 20), animated: true)
+        activeTextField = textField;
+    }
+    
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        addImageScrollV.setContentOffset(CGPoint.init(x: 0, y: 0), animated: true)
+        activeTextField = nil;
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+//        if textField.tag == 0 {
+//            descriptionTF.becomeFirstResponder()
+//        } else {
+//            descriptionTF.resignFirstResponder()
+//        }
+        return true
+    }
+    
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
