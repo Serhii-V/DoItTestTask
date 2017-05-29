@@ -112,8 +112,10 @@ class SignUpVC: UIViewController, UINavigationControllerDelegate, UIImagePickerC
                                 }
                                 if response.response?.statusCode == 201 {
                                 self?.navigationController?.popViewController(animated: true)
+                                } else {
+                                    print((response.response?.statusCode)!)
                                 }
-                                print(response.response)
+                                print(response.response!)
                             }
                         case .failure(let encodingError):
                             print("error:\(encodingError)")
@@ -121,4 +123,5 @@ class SignUpVC: UIViewController, UINavigationControllerDelegate, UIImagePickerC
             })
         } 
     }
+    
 }

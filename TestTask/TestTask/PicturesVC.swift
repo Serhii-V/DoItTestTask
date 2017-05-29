@@ -18,7 +18,8 @@ class PicturesVC: UIViewController, UICollectionViewDataSource, UICollectionView
     
     @IBOutlet var picturesCollectionView: UICollectionView!
     
-
+    @IBOutlet weak var gifIV: UIImageView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,40 +54,29 @@ class PicturesVC: UIViewController, UICollectionViewDataSource, UICollectionView
         cell.picrureCellAddress.text = self.imagesData?[indexPath.item].address
         cell.picrureCellWeather.text = self.imagesData?[indexPath.item].weather
         
-       // self.picturesCollectionView.reloadData()
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let myVC = storyboard?.instantiateViewController(withIdentifier: "BigImageVC") as! BigImageVC
         
-        // un first i  used big image path but i caught server error on 70 % of images {"error":{"code":404,"message":"Not Found"}}  http://api.doitserver.in.ua/upload/images/big/9af2fd6c26d7f7927df1d17c5f16c98c.jpeg
-        
-//        if let str = (self.imagesData?[indexPath.item].bigImagePath) {
-//            imageBigStr = str
-//        }
-        
         if let str = (self.imagesData?[indexPath.item].smalImagePath) {
             myVC.image = str
         }
         
         if let desc = (self.imagesData?[indexPath.item].imageDescription) {
-           myVC.imageDescription = desc
+            myVC.imageDescription = desc
         } else {
             myVC.imageDescription  = "No description"
         }
         
         if let hash = (self.imagesData?[indexPath.item].hashtag) {
-          myVC.hashtag = hash
+            myVC.hashtag = hash
         } else {
             myVC.hashtag = "No hashtag"
         }
-        
-        
-        
         navigationController?.pushViewController(myVC, animated: true)
-       // self.performSegue(withIdentifier: "BigImageVC", sender: self)
-        print ("You selected cell #\(indexPath.item)!")
+        // print ("You selected cell #\(indexPath.item)!")
     }
     
     @IBAction func logout(_ sender: UIBarButtonItem) {
@@ -95,77 +85,72 @@ class PicturesVC: UIViewController, UICollectionViewDataSource, UICollectionView
         self.navigationController?.popViewController(animated: true)
     }
     
-    
-    
     func getData() {
         if let token = UserDefaults.standard.value(forKey: "token") {
             let urlString = "http://api.doitserver.in.ua/all"
             let header: HTTPHeaders = [
                 "token": "\(token)"]
-            
             Alamofire.request(urlString, headers: header).responseJSON { response in
                 if let data = response.result.value {
-                    
                     self.imagesData = [ImageData]()
-                    
                     do {
                         let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
                         let json = try JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers) as! [String:AnyObject]
                         if let imageDataFromImages = json["images"] as? [[String: AnyObject]] {
-                        if  imageDataFromImages.count != 0 {
-                            var imageData = ImageData()
-                            for data in imageDataFromImages {
-                                //print(data)
-                                if let smallImagePath = data["smallImagePath"] as? String {
-                                    imageData.smalImagePath = smallImagePath
-                                    //print(smallImagePath)
-                                }
-                                
-                                if let bigImagePath = data["bigImagePath"] as? String {
-                                    imageData.bigImagePath = bigImagePath
-                                    //print(bigImagePath)
-                                }
-                                if let idImage = "\(data["id"])" as? String {
-                                    imageData.id = idImage
-                                    //print(idImage)
-                                }
-                                if let hashtag = data["hashtag"] as? String {
-                                    imageData.hashtag = hashtag
-                                    //print(hashtag)
-                                }
-                                if let created = data["created"] as? String {
-                                    imageData.created = created
-                                    //print(created)
-                                }
-                                if let description = data["description"] as? String {
-                                    imageData.imageDescription = description
-                                    //print(description)
-                                }
-                                if let parameters = data["parameters"] as? [String:Any] {
-                                    for (key, value) in parameters {
-                                        if key == "latitude" {
-                                            imageData.latitude = "\(value)"
-                                            //print(value)
-                                        }
-                                        if key == "longitude" {
-                                            imageData.longitude = "\(value)"
-                                            // print(value)
-                                        }
-                                        if key == "weather" {
-                                            imageData.weather = "\(value)"
-                                            //print(value)
-                                        }
-                                        if key == "address" {
-                                            imageData.address = "\(value)"
-                                            //print(value)
+                            if  imageDataFromImages.count != 0 {
+                                var imageData = ImageData()
+                                for data in imageDataFromImages {
+                                    //print(data)
+                                    if let smallImagePath = data["smallImagePath"] as? String {
+                                        imageData.smalImagePath = smallImagePath
+                                        //print(smallImagePath)
+                                    }
+                                    
+                                    if let bigImagePath = data["bigImagePath"] as? String {
+                                        imageData.bigImagePath = bigImagePath
+                                        //print(bigImagePath)
+                                    }
+                                    if let idImage = "\(data["id"])" as? String {
+                                        imageData.id = idImage
+                                        //print(idImage)
+                                    }
+                                    if let hashtag = data["hashtag"] as? String {
+                                        imageData.hashtag = hashtag
+                                        //print(hashtag)
+                                    }
+                                    if let created = data["created"] as? String {
+                                        imageData.created = created
+                                        //print(created)
+                                    }
+                                    if let description = data["description"] as? String {
+                                        imageData.imageDescription = description
+                                        //print(description)
+                                    }
+                                    if let parameters = data["parameters"] as? [String:Any] {
+                                        for (key, value) in parameters {
+                                            if key == "latitude" {
+                                                imageData.latitude = "\(value)"
+                                                //print(value)
+                                            }
+                                            if key == "longitude" {
+                                                imageData.longitude = "\(value)"
+                                                // print(value)
+                                            }
+                                            if key == "weather" {
+                                                imageData.weather = "\(value)"
+                                                //print(value)
+                                            }
+                                            if key == "address" {
+                                                imageData.address = "\(value)"
+                                                //print(value)
+                                            }
                                         }
                                     }
+                                    self.imagesData?.append(imageData)
+                                    imageData = ImageData()
+                                    //print(imageData.smalImagePath)
                                 }
-                                self.imagesData?.append(imageData)
-                                imageData = ImageData()
-                                //print(imageData.smalImagePath)
                             }
-                        }
                         }
                         DispatchQueue.main.async {
                             self.picturesCollectionView.reloadData()
@@ -179,18 +164,10 @@ class PicturesVC: UIViewController, UICollectionViewDataSource, UICollectionView
         }
     }
     
-    
-    
-    
-    
-    
-    
+    var checker = false
     
     @IBAction func showGif(_ sender: UIBarButtonItem) {
-        let imageView = UIImageView()
-
-        
-
+        if checker == false {
             if let token = UserDefaults.standard.value(forKey: "token") {
                 let urlString = "http://api.doitserver.in.ua/gif"
                 let header: HTTPHeaders = [
@@ -201,52 +178,45 @@ class PicturesVC: UIViewController, UICollectionViewDataSource, UICollectionView
                         do {
                             let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
                             let json = try JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers) as! [String:String]
-                                DispatchQueue.main.async {
-                                    let gifStr = json["gif"]!
-                                    let imageV = UIImageView()
-                                    
-                                    
-                                    let urlRequest = URLRequest(url: URL(string: gifStr)!)
-                                    let task = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
-                                        if error != nil {
-                                            print(error)
-                                        }
-                                        DispatchQueue.main.async {
-                                            imageV.image = UIImage.gif(data: data!)
-                                            imageV.frame = CGRect(x: 50, y: 100, width: 250, height: 250)
-                                            self.view.addSubview(imageV)
-                                        }
+                            DispatchQueue.main.async {
+                                let gifStr = json["gif"]!
+                                let urlRequest = URLRequest(url: URL(string: gifStr)!)
+                                let task = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+                                    if error != nil {
                                     }
-                                    task.resume()
+                                    DispatchQueue.main.async {
+                                        //imageV.image = UIImage.gif(data: data!)
+                                        //imageV.frame = CGRect(x: 20, y: 100, width: 250, height: 250)
+                                        //self.view.addSubview(imageV)
+                                        self.gifIV.isHidden = false
+                                        self.gifIV.image = UIImage.gif(data: data!)
+                                        self.gifIV.frame = CGRect(x: 20, y: 150, width: 280, height: 280)
+                                        self.checker = true
+                                        sender.tintColor = UIColor.red
+                                    }
+                                }
+                                task.resume()
                             }
                         } catch let error {
                             print(error)
                         }
                     }
                 }
-                
-                
-                
-                
             }
-        
-        
-        
-        
+        } else {
+            gifIV.isHidden = true
+            sender.tintColor = UIColor.blue
+            checker = false
+        }
     }
-    
-    
 }
-
-
-
 
 extension UIImageView {
     func dowloadImage(url: String){
         let urlRequest = URLRequest(url: URL(string: url)!)
         let task = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
             if error != nil {
-                print(error)
+                print(error!)
             }
             DispatchQueue.main.async {
                 self.image = UIImage(data: data!)
